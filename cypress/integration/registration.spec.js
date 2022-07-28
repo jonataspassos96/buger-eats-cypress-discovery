@@ -1,14 +1,6 @@
-import SignupPage from '../pages/SignupPage'
+import signup from '../pages/SignupPage'
 
 describe('Cadastro', () => {
-
-  before(() => {
-    cy.log('Tudo aqui é executado uma única vez ANTES de TODOS os casos de testes')
-  })
-
-  after(() => {
-    cy.log('Tudo aqui é executado uma única vez DEPOIS de TODOS os casos de testes')
-  })
 
   it('Usuário deve se tornar um entregador', () => {
 
@@ -29,12 +21,12 @@ describe('Cadastro', () => {
       cnh: 'cnh-digital.jpg'
     }
 
-    SignupPage.go()
-    SignupPage.fillForm(deliver);
-    SignupPage.submit();
+    signup.go()
+    signup.fillForm(deliver);
+    signup.submit();
 
     const expectedMessage = 'Recebemos os seus dados. Fique de olho na sua caixa de email, pois e em breve retornamos o contato.'
-    SignupPage.modalContentShouldBe(expectedMessage)
+    signup.modalContentShouldBe(expectedMessage)
 
   })
 
@@ -57,10 +49,10 @@ describe('Cadastro', () => {
       cnh: 'cnh-digital.jpg'
     }
 
-    SignupPage.go()
-    SignupPage.fillForm(deliver)
-    SignupPage.submit()
-    SignupPage.alertMessageShouldBe('Oops! CPF inválido')
+    signup.go()
+    signup.fillForm(deliver)
+    signup.submit()
+    signup.alertMessageShouldBe('Oops! CPF inválido')
 
   })
 })
