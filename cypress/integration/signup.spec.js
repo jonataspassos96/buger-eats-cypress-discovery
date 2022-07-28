@@ -24,4 +24,11 @@ describe('Signup', () => {
     signup.alertMessageShouldBe('Oops! CPF inválido')
   })
 
+  it('Incorrect email', function () {
+    signup.go()
+    signup.fillForm(this.deliver.email_invalid)
+    signup.submit()
+    signup.alertMessageShouldBe('Oops! Email com formato inválido.')
+  })
+
 })
