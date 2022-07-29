@@ -1,34 +1,45 @@
-import signup from '../pages/SignupPage'
+import signupPage from '../pages/SignupPage'
+import signupFactory from '../factories/SignupFactory'
 
 describe('Signup', () => {
 
-  beforeEach(function () {
+  /* beforeEach(function () {
     cy.fixture('deliver').then(d => {
       this.deliver = d
     })
-  })
+  }) */
 
   it('User shoul be deliver', function () {
-    signup.go()
-    signup.fillForm(this.deliver.signup)
-    signup.submit()
+    const deliver = signupFactory.deliver()
+
+    signupPage.go()
+    signupPage.fillForm(deliver)
+    signupPage.submit()
 
     const expectedMessage = 'Recebemos os seus dados. Fique de olho na sua caixa de email, pois e em breve retornamos o contato.'
-    signup.modalContentShouldBe(expectedMessage)
+    signupPage.modalContentShouldBe(expectedMessage)
   })
 
   it('Incorrect document', function () {
-    signup.go()
-    signup.fillForm(this.deliver.cpf_invalid)
-    signup.submit()
-    signup.alertMessageShouldBe('Oops! CPF inválido')
+    const deliver = signupFactory.deliver()
+
+    deliver.cpf = 'x00000141AA'
+
+    signupPage.go()
+    signupPage.fillForm(deliver)
+    signupPage.submit()
+    signupPage.alertMessageShouldBe('Oops! CPF inválido')
   })
 
   it('Incorrect email', function () {
-    signup.go()
-    signup.fillForm(this.deliver.email_invalid)
-    signup.submit()
-    signup.alertMessageShouldBe('Oops! Email com formato inválido.')
+    const deliver = signupFactory.deliver()
+
+    deliver.email = 'jonatas.mail.com'
+
+    signupPage.go()
+    signupPage.fillForm(deliver)
+    signupPage.submit()
+    signupPage.alertMessageShouldBe('Oops! Email com formato inválido.')
   })
 
 })
